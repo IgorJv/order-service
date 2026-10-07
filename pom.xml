@@ -16,7 +16,7 @@
     <url/>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>demp.demo_app.App</start-class>
+        <start-class>org.orderservice.OrderServiceApplication</start-class>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
