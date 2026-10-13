@@ -7,8 +7,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.orderservice.orderservice.service.KafkaProducerService;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 
-import static org.mockito.Mockito.verify;
+import java.util.concurrent.CompletableFuture;
+
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class KafkaProducerServiceTest {
@@ -21,6 +24,9 @@ public class KafkaProducerServiceTest {
     void sendOrderEvent_ShouldSendToKafkaWithCorrectTopicAndKey() {
         OrderEventDto event = new OrderEventDto();
         event.setOrderId("ord-12345");
+        SendResult<String, Object> result = mock(SendResult.class);
+        when(kafkaTemplate.send(anyString(), anyString(), any()))
+                .thenReturn(CompletableFuture.completedFuture(result));
         kafkaProducerService.sendOrderEvent(event);
         verify(kafkaTemplate).send("order-events", "ord-12345", event);
     }
